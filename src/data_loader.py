@@ -4,6 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
+
 def load_data(file_path):
     """Carga los datos desde un archivo CSV y realiza preprocesamiento."""
     df = pd.read_csv(file_path)

@@ -1,5 +1,6 @@
 import tensorflow as tf
 import matplotlib.pyplot as plt
+from tensorflow.keras.callbacks import EarlyStopping
 from data_loader import load_data
 from model import create_model
 
@@ -13,6 +14,11 @@ X_train, X_test, y_train, y_test = load_data(file_path)
 input_shape = X_train.shape[1]
 model = create_model(input_shape)
 
+
+#Early Stopping para evitar sobreentrenamiento
+
+early_stop = EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True)
+
 # Entrenamiento del modelo 
 epochs = 80
 history = model.fit(
@@ -20,8 +26,10 @@ history = model.fit(
     validation_data=(X_test, y_test),
     epochs=epochs,
     batch_size=32,
+    callbacks=[early_stop],
     verbose=1
 )
+
 
 # guardando el modelo entrenado
 
